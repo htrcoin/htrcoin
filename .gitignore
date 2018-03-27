@@ -1,0 +1,11 @@
+# ignore a single file
+compile-blk.sh
+.DS_Store
+bin/
+hightemperature.pro
+hightemperatured
+HighTemperature-qt
+qrc_bitcoin\.cpp
+build/
+*.qm
+

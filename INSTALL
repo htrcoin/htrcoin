@@ -1,0 +1,9 @@
+Building HighTemperature
+
+See doc/readme-qt.rst for instructions on building HighTemperature QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of HighTemperature.
+
+See doc/build-*.txt for instructions on building HighTemperatured,
+the intended-for-services, no-graphical-interface, reference
+implementation of HighTemperature.
