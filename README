@@ -1,27 +1,19 @@
 HighTemperature Release Tree
 
-HighTemperature is a POW/PoS-based cryptocurrency.
+HighTemperature is a POW/PoS/MN based cryptocurrency.
 
-HighTemperature is a PoW (Scrypt) / PoS / Master Node hybrid cryptocurrency, with a 5 million coin maximum supply, which is generated at a slower rate every 1 Million HTRC, until it's limit is reached. Master Node cost 3000IC, block size is 20MB, and block time is ~2Minutes.
+HighTemperature is a PoW (Scrypt) / PoS / Master Node hybrid cryptocurrency, with a 21 million coin maximum supply.
 
-50% of Blocks are PoW , and 50% are PoS, of which each PoS block is split between Masternode and Staker.
-
-Block Spacing: 120 Seconds
-Diff Retarget: every Blocks
-Maturity: 30 Blocks
-Stake Minimum Age: 1/2 Hours
+Block Spacing: 60 Seconds
+Diff Retarget: every 10 min.
+Maturity: 100 Blocks
+Stake Minimum Age: 1 Hours
 
 Default Network Ports:
-Port: 44144
-RPC Port: 44155
+Port: 11368
+RPC Port: 11369
 
-Website: https://HighTemperatureCoin.org
 
-LiveNet Explorer: http://explorer.hightemperaturecoin.org/
-
-BitcoinTalk Announcement: https://bitcointalk.org/index.php?topic=2612608.0
-
-White Paper: https://hightemperaturecoin.org/wp-content/uploads/2018/01/HighTemperature-Coin-White-Paper.pdf
 
 For compiling on different architectures, see the docs/build-*os* documents. Otherwise, view releases page for windows qt-wallets.
 
