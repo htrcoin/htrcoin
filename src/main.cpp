@@ -48,7 +48,7 @@ set<pair<COutPoint, unsigned int> > setStakeSeen;
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 
 unsigned int nStakeMinAge = 60 * 60; // 60 minutes
-unsigned int nModifierInterval = 8 * 60; // time to elapse before new modifier is computed
+unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 100;
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -1401,7 +1401,7 @@ int64_t GetProofOfStakeReward(int nHeight, int64_t nCoinAge, int64_t nFees)
     return nSubsidy + nFees;
 }
 
-static int64_t nTargetTimespan = 48 * 60;  // 48 mins
+static int64_t nTargetTimespan = TARGET_TIMESPAN;
 
 // ppcoin: find last block index up to pindex
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfStake)
@@ -1423,7 +1423,7 @@ unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfS
   //
 	// if(pindexLast->GetBlockTime() > STAKE_TIMESPAN_SWITCH_TIME1)
 	// nTargetTimespan = 10 * 60; // 10 minutes
-    nTargetTimespan = 10 * 60; // 10 minutes
+    nTargetTimespan = TARGET_TIMESPAN;
 
     CBigNum bnTargetLimit = fProofOfStake ? GetProofOfStakeLimit(pindexLast->nHeight) : Params().ProofOfWorkLimit();
 

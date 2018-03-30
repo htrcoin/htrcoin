@@ -17,19 +17,15 @@
 
 class CValidationState;
 
-#define START_MASTERNODE_PAYMENTS_TESTNET 1428034047 //Fri, 09 Jan 2015 21:05:58 GMT
-#define START_MASTERNODE_PAYMENTS 1513638000 //18 dec 2017 23:00 GMT
+#define START_MASTERNODE_PAYMENTS_TESTNET 1522421410 //Fri, 09 Jan 2015 21:05:58 GMT
+#define START_MASTERNODE_PAYMENTS 1522421410 //18 dec 2017 23:00 GMT
 
 static const int64_t DARKSEND_COLLATERAL = (0.01*COIN);
 static const int64_t DARKSEND_POOL_MAX = (4999.99*COIN);
 
 
-static const int64_t TARGET_SPACING = 60; // 2 min per Block
-//static const int64_t TARGET_SPACING2 = 53; // 53 sec per Block
-//static const int64_t STAKE_TIMESPAN_SWITCH_TIME = 1508858115;
-//static const int64_t STAKE_TIMESPAN_SWITCH_TIME1 = 1509555600; //1 Nov 2017 17:00:00 GMT
-//static const int64_t FORK_TIME = 1510059600;  //November 7, 2017 1:00:00 PM GMT
-
+static const int64_t TARGET_SPACING = 60; // 1 min per Block
+static const int64_t TARGET_TIMESPAN = 10 * 60; // every 10 min
 
 #define INSTANTX_SIGNATURES_REQUIRED           10
 #define INSTANTX_SIGNATURES_TOTAL              15

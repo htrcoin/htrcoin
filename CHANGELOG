@@ -1,7 +1,9 @@
+>>>>>>Forked to High HighTemperature Coin
+
 v1.0.0.3
 --------
-HighTemperatured binary will now compile out to hightemperatured (lower case)
-Unlock Bugs Fixed - For issue https://github.com/hightemperaturecoin/hightemperaturecoin/issues/10
+HighTemperatured binary will now compile out to newcoin (lower case)
+Unlock Bugs Fixed -
 GitIgnore ignores more files
 Fixed bug with a help response repeating itself
 Removing depricated "masternode winners" command
@@ -26,7 +28,7 @@ v1.0.0a
 -------
 Initial HighTemperature Release
 
->>>>>>Forked to HighTemperature Coin
+>>>>>>Forked to newcoin Coin
 
 v2.0.3.2
 --------

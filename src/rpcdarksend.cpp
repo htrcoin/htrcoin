@@ -745,7 +745,12 @@ Value masternode(const Array& params, bool fHelp)
         mnObj.push_back(Pair("status", activeMasternode.status));
         //mnObj.push_back(Pair("pubKeyMasternode", address2.ToString().c_str()));
         if (pmn) mnObj.push_back(Pair("pubkey", CBitcoinAddress(pmn->pubkey.GetID()).ToString()));
-        mnObj.push_back(Pair("notCapableReason", activeMasternode.notCapableReason.c_str()));
+        if (activeMasternode.status == MASTERNODE_REMOTELY_ENABLED) {
+          mnObj.push_back(Pair("Maternode", "Masternode Running Remotly"));
+        } else {
+          mnObj.push_back(Pair("notCapableReason", activeMasternode.notCapableReason.c_str()));
+        }
+        //mnObj.push_back(Pair("notCapableReason", activeMasternode.notCapableReason.c_str()));
 
         return mnObj;
     }

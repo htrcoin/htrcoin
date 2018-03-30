@@ -8,4 +8,5 @@ HighTemperature-qt
 qrc_bitcoin\.cpp
 build/
 *.qm
+*.sh
 
