@@ -23,7 +23,7 @@ class CValidationState;
 static const int64_t DARKSEND_COLLATERAL = (0.01*COIN);
 static const int64_t DARKSEND_POOL_MAX = (4999.99*COIN);
 
-
+static const int64_t MN_NEW_PAY_BLOCK = 34000;
 static const int64_t TARGET_SPACING = 60; // 1 min per Block
 static const int64_t TARGET_TIMESPAN = 10 * 60; // every 10 min
 

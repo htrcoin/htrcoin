@@ -1,3 +1,10 @@
+v1.0.1.0
+--------
+MN Payment UPDATE + Protocol update (mandatory update)
+Enforce default port 11368 for MN to run on.
+POS reward Modified
+
+
 v1.0.0.1
 --------
 information text correction.
