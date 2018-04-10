@@ -1373,29 +1373,29 @@ int64_t GetProofOfStakeReward(int nHeight, int64_t nCoinAge, int64_t nFees)
 
     int64_t nSubsidy = 0 * COIN;
 
-    if(nHeight < 10000) // live test before launch = 198 coin
+    if(nHeight < 10000)
     {
       nSubsidy = 2 * COIN;
     }
-    else if(nHeight < 20000) // 1st year aproximatly = (262800 - 200 )*4 =  892,840 coins + 100198 = total 993,038 coins
+    else if(nHeight < 20000)
     {
       nSubsidy = 4 * COIN;
     }
-    else if(nHeight < 50000) // 5th year aproximatly = (1314000 - 262800)* 0.95 = 998,640 coins
+    else if(nHeight < 40000)
     {
       nSubsidy = 10 * COIN;
     }
-    else if(nHeight < 150000) // 10th year aproximatly = (2628000 - 1314000)* 0.75 = 985,500 coins
+    else if(nHeight < 80000)
     {
-      nSubsidy = 20 * COIN;
+      nSubsidy = 30 * COIN;
     }
-    else if(nHeight < 300000) // 20th year aproximatly = (5256000 - 2628000)* 0.4 = 1,051,200 coins
+    else if(nHeight < 150000)
     {
-      nSubsidy = 32 * COIN;
+      nSubsidy = 50 * COIN;
     }
-    else if(nHeight >= 300000) // 50th year aproximatly = (13140000 - 5256000)* 0.12 = 946,080 coins
+    else if(nHeight >= 150000)
     {
-      nSubsidy = 64 * COIN;
+      nSubsidy = 75 * COIN;
     }
 
     return nSubsidy + nFees;
