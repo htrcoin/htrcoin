@@ -1,7 +1,6 @@
 #include "net.h"
 #include "masternodeconfig.h"
 #include "util.h"
-#include "chainparams.h"
 #include <base58.h>
 
 CMasternodeConfig masternodeConfig;
@@ -53,12 +52,12 @@ bool CMasternodeConfig::read(boost::filesystem::path path) {
         }
 
         if(Params().NetworkID() == CChainParams::MAIN){
-            if(CService(ip).GetPort() != Params().GetDefaultPort()) {
+            if(CService(ip).GetPort() != 11368) {
                 LogPrintf("Invalid port detected in masternode.conf: %s (must be 11368 for mainnet)\n", line.c_str());
                 streamConfig.close();
                 return false;
             }
-        } else if(CService(ip).GetPort() == Params().GetDefaultPort()) {
+        } else if(CService(ip).GetPort() == 11368) {
             LogPrintf("Invalid port detected in masternode.conf: %s (11368 must be only on mainnet)\n", line.c_str());
             streamConfig.close();
             return false;

@@ -2617,7 +2617,7 @@ bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) c
 							CTxDestination address1;
 							ExtractDestination(payee, address1);
 							CHighTemperaturecoinAddress address2(address1);
-							if (pindexBest->nHeight+1 < MN_NEW_PAY_BLOCK) {
+							if (pindexBest->nHeight+1 < 34000) {
 							foundPaymentAmount = true;
 							foundPayee = true;
 							foundPaymentAndPayee = true;
@@ -3617,8 +3617,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if ( pfrom->nVersion < MIN_PEER_PROTO_VERSION ||
-			     (nBestHeight >= MN_NEW_PAY_BLOCK && pfrom->nVersion < MIN_PEER_PROTO_VERSION_B34K) )
+        if ( pfrom->nVersion < MIN_PEER_PROTO_VERSION )
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);
