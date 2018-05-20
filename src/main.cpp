@@ -239,6 +239,30 @@ bool AbortNode(const std::string &strMessage, const std::string &userMessage) {
     return false;
 }
 
+// int64_t GetMNCollateral(int nHeight) {
+//
+//     if(nHeight < FORK1_BlOCK)
+//     {
+//       return 1000;
+//     }
+//     else if(nHeight >= FORK1_BlOCK)
+//     {
+//       return 5000;
+//     }
+//     else if(nHeight >= 300)
+//     {
+//       return 20000;
+//     }
+//     else if(nHeight >= 400)
+//     {
+//       return 50000;
+//     }
+//     else
+//     {
+//       return 1000;
+//     }
+//
+// }
 //////////////////////////////////////////////////////////////////////////////
 //
 // mapOrphanTransactions
@@ -1393,9 +1417,21 @@ int64_t GetProofOfStakeReward(int nHeight, int64_t nCoinAge, int64_t nFees)
     {
       nSubsidy = 50 * COIN;
     }
-    else if(nHeight >= 150000)
+    else if(nHeight < 160000)
     {
       nSubsidy = 75 * COIN;
+    }
+    else if(nHeight < 175000)
+    {
+      nSubsidy = 225 * COIN;
+    }
+    else if(nHeight < 200000)
+    {
+      nSubsidy = 450 * COIN;
+    }
+    else if(nHeight >= 200000)
+    {
+      nSubsidy = 1000 * COIN;
     }
 
     return nSubsidy + nFees;
@@ -3552,7 +3588,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
+        if ( pfrom->nVersion < MIN_PEER_PROTO_VERSION ||
+			     (nBestHeight >= FORK1_BlOCK && pfrom->nVersion < MIN_PEER_PROTO_VERSION_FORK1) )
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);

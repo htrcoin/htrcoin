@@ -354,7 +354,7 @@ CMasternode* CMasternodeMan::FindOldestNotInVec(const std::vector<CTxIn> &vVins,
     CMasternode *pOldestMasternode = NULL;
 
     BOOST_FOREACH(CMasternode &mn, vMasternodes)
-    {   
+    {
         mn.Check();
         if(!mn.IsEnabled()) continue;
 
@@ -363,7 +363,7 @@ CMasternode* CMasternodeMan::FindOldestNotInVec(const std::vector<CTxIn> &vVins,
         bool found = false;
         BOOST_FOREACH(const CTxIn& vin, vVins)
             if(mn.vin.prevout == vin.prevout)
-            {   
+            {
                 found = true;
                 break;
             }
@@ -568,7 +568,7 @@ void CMasternodeMan::ProcessMasternodeConnections()
     LOCK(cs_vNodes);
 
     if(!darkSendPool.pSubmittedToMasternode) return;
-    
+
     BOOST_FOREACH(CNode* pnode, vNodes)
     {
         if(darkSendPool.pSubmittedToMasternode->addr == pnode->addr) continue;
@@ -605,7 +605,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         std::string strMessage;
         CScript rewardAddress = CScript();
         int rewardPercentage = 0;
-        
+
         // 70047 and greater
         vRecv >> vin >> addr >> vchSig >> sigTime >> pubkey >> pubkey2 >> count >> current >> lastUpdated >> protocolVersion;
 
@@ -614,17 +614,17 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             //LogPrintf("dsee - Bad packet\n");
             return;
         }
-        
+
         if (sigTime > lastUpdated) {
             //LogPrintf("dsee - Bad node entry\n");
             return;
         }
-        
+
         if (addr.GetPort() == 0) {
             //LogPrintf("dsee - Bad port\n");
             return;
         }
-        
+
         // make sure signature isn't in the future (past is OK)
         if (sigTime > GetAdjustedTime() + 60 * 60) {
             LogPrintf("dsee - Signature rejected, too far into the future %s\n", vin.ToString().c_str());
@@ -637,7 +637,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         std::string vchPubKey(pubkey.begin(), pubkey.end());
         std::string vchPubKey2(pubkey2.begin(), pubkey2.end());
 
-        strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);    
+        strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);
 
         if(protocolVersion < MIN_POOL_PEER_PROTO_VERSION) {
             LogPrintf("dsee - ignoring outdated masternode %s protocol version %d\n", vin.ToString().c_str(), protocolVersion);
@@ -726,6 +726,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         CTxOut vout = CTxOut((GetMNCollateral(pindexBest->nHeight)-1)*COIN, darkSendPool.collateralPubKey);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
+        LogPrint("sarkawt", "dsee - vout = %s\n", vout.ToString().c_str());
         bool fAcceptable = false;
         {
             TRY_LOCK(cs_main, lockMain);
@@ -767,7 +768,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             } else {
                 addrman.Add(CAddress(addr), pfrom->addr, 2*60*60); // use this as a peer
             }
-            
+
             mn.ChangeNodeStatus(true);
             this->Add(mn);
 
@@ -778,7 +779,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
             if(count == -1 && !isLocal)
                 mnodeman.RelayOldMasternodeEntry(vin, addr, vchSig, sigTime, pubkey, pubkey2, count, current, lastUpdated, protocolVersion);
-            
+
         } else {
             LogPrintf("dsee - Rejected masternode entry %s\n", addr.ToString().c_str());
 
@@ -817,17 +818,17 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             //LogPrintf("dsee+ - Bad packet\n");
             return;
         }
-        
+
         if (sigTime > lastUpdated) {
             //LogPrintf("dsee+ - Bad node entry\n");
             return;
         }
-        
+
         if (addr.GetPort() == 0) {
             //LogPrintf("dsee+ - Bad port\n");
             return;
         }
-        
+
         // make sure signature isn't in the future (past is OK)
         if (sigTime > GetAdjustedTime() + 60 * 60) {
             LogPrintf("dsee+ - Signature rejected, too far into the future %s\n", vin.ToString().c_str());
@@ -841,7 +842,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         std::string vchPubKey2(pubkey2.begin(), pubkey2.end());
 
         strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion)  + rewardAddress.ToString() + boost::lexical_cast<std::string>(rewardPercentage);
-        
+
         if(rewardPercentage < 0 || rewardPercentage > 100){
             LogPrintf("dsee+ - reward percentage out of range %d\n", rewardPercentage);
             return;
@@ -907,7 +908,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                     pmn->protocolVersion = protocolVersion;
                     pmn->addr = addr;
                     pmn->rewardAddress = rewardAddress;
-                    pmn->rewardPercentage = rewardPercentage;                    
+                    pmn->rewardPercentage = rewardPercentage;
                     pmn->Check();
                     pmn->isOldNode = false;
                     if(pmn->IsEnabled())
@@ -984,10 +985,10 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             } else {
                 addrman.Add(CAddress(addr), pfrom->addr, 2*60*60); // use this as a peer
             }
-            
+
             mn.ChangeNodeStatus(false);
             this->Add(mn);
-            
+
             // if it matches our masternodeprivkey, then we've been remotely activated
             if(pubkey2 == activeMasternode.pubKeyMasternode && protocolVersion == PROTOCOL_VERSION){
                 activeMasternode.EnableHotColdMasterNode(vin, addr);
@@ -1009,7 +1010,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             }
         }
     }
-    
+
     else if (strCommand == "dseep") { //DarkSend Election Entry Ping
 
         CTxIn vin;

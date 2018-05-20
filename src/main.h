@@ -20,6 +20,8 @@ class CValidationState;
 #define START_MASTERNODE_PAYMENTS_TESTNET 1522421410 //Fri, 09 Jan 2015 21:05:58 GMT
 #define START_MASTERNODE_PAYMENTS 1522421410 //18 dec 2017 23:00 GMT
 
+#define FORK1_BlOCK 160000 // time to swtch to protocol 60031
+
 static const int64_t DARKSEND_COLLATERAL = (0.01*COIN);
 static const int64_t DARKSEND_POOL_MAX = (4999.99*COIN);
 
@@ -62,7 +64,7 @@ static const int64_t MIN_TX_FEE = 1000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 /** No amount larger than this (in satoshi) is valid */
-static const int64_t MAX_MONEY = 21000000 * COIN; // 1M PoW coins
+static const int64_t MAX_MONEY = 80000000 * COIN; // 1M PoW coins
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
@@ -73,7 +75,30 @@ inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }
 /** "reject" message codes **/
 static const unsigned char REJECT_INVALID = 0x10;
 
-inline int64_t GetMNCollateral(int nHeight) { return 1000; }
+inline int64_t GetMNCollateral(int nHeight){
+
+    if(nHeight < FORK1_BlOCK)
+    {
+      return 1000;
+    }
+    else if(nHeight >= FORK1_BlOCK && nHeight < 175000)
+    {
+      return 5000;
+    }
+    else if(nHeight >= 175000 && nHeight < 200000)
+    {
+      return 20000;
+    }
+    else if(nHeight >= 200000)
+    {
+      return 50000;
+    }
+    else
+    {
+      return 50000;
+    }
+
+}
 
 extern CScript COINBASE_FLAGS;
 extern CCriticalSection cs_main;
