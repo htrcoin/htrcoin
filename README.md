@@ -2,7 +2,7 @@ HighTemperature Release Tree
 
 HighTemperature is a POW/PoS/MN based cryptocurrency.
 
-HighTemperature is a PoW (Scrypt) / PoS / Master Node hybrid cryptocurrency, with a 21 million coin maximum supply.
+HighTemperature is a PoW (Scrypt) / PoS / Master Node hybrid cryptocurrency, with a 80 million coin maximum supply.
 
 Block Spacing: 60 Seconds
 Diff Retarget: every 10 min.
