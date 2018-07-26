@@ -348,24 +348,24 @@ qmake_all: FORCE
 make_first: release-make_first debug-make_first  FORCE
 all: release-all debug-all  FORCE
 clean: release-clean debug-clean  FORCE
-	-$(DEL_FILE) /home/ubuntu-mnp/HighTemperatureCoin/src/leveldb/libleveldb.a;
+	-$(DEL_FILE) /home/ubuntu-mnp/htrcoin/src/leveldb/libleveldb.a;
 	-$(DEL_FILE) cd
-	-$(DEL_FILE) /home/ubuntu-mnp/HighTemperatureCoin/src/leveldb
+	-$(DEL_FILE) /home/ubuntu-mnp/htrcoin/src/leveldb
 	-$(DEL_FILE) ;
 	-$(DEL_FILE) clean
-	-$(DEL_FILE) /home/ubuntu-mnp/HighTemperatureCoin/src/secp256k1/src/libsecp256k1_la-secp256k1.o;
+	-$(DEL_FILE) /home/ubuntu-mnp/htrcoin/src/secp256k1/src/libsecp256k1_la-secp256k1.o;
 	-$(DEL_FILE) cd
-	-$(DEL_FILE) /home/ubuntu-mnp/HighTemperatureCoin/src/secp256k1;
+	-$(DEL_FILE) /home/ubuntu-mnp/htrcoin/src/secp256k1;
 	-$(DEL_FILE) clean
 distclean: release-distclean debug-distclean  FORCE
 	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) /home/ubuntu-mnp/HighTemperatureCoin/hightemperature-qt_plugin_import.cpp .qmake.stash
+	-$(DEL_FILE) /home/ubuntu-mnp/htrcoin/hightemperature-qt_plugin_import.cpp .qmake.stash
 
-/home/ubuntu-mnp/HighTemperatureCoin/src/leveldb/libleveldb.a: FORCE
-	cd /home/ubuntu-mnp/HighTemperatureCoin/src/leveldb && CC=i686-w64-mingw32.static-gcc CXX=i686-w64-mingw32.static-g++ TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT="-fno-keep-inline-dllexport -pipe -D_FORTIFY_SOURCE=2 -O2" libleveldb.a libmemenv.a && i686-w64-mingw32.static-ranlib /home/ubuntu-mnp/HighTemperatureCoin/src/leveldb/libleveldb.a && i686-w64-mingw32.static-ranlib /home/ubuntu-mnp/HighTemperatureCoin/src/leveldb/libmemenv.a
+/home/ubuntu-mnp/htrcoin/src/leveldb/libleveldb.a: FORCE
+	cd /home/ubuntu-mnp/htrcoin/src/leveldb && CC=i686-w64-mingw32.static-gcc CXX=i686-w64-mingw32.static-g++ TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT="-fno-keep-inline-dllexport -pipe -D_FORTIFY_SOURCE=2 -O2" libleveldb.a libmemenv.a && i686-w64-mingw32.static-ranlib /home/ubuntu-mnp/htrcoin/src/leveldb/libleveldb.a && i686-w64-mingw32.static-ranlib /home/ubuntu-mnp/htrcoin/src/leveldb/libmemenv.a
 
-/home/ubuntu-mnp/HighTemperatureCoin/src/secp256k1/src/libsecp256k1_la-secp256k1.o: FORCE
-	cd /home/ubuntu-mnp/HighTemperatureCoin/src/secp256k1 && ./autogen.sh && ./configure --enable-module-recovery --with-bignum=no --host=i686-w64-mingw32.static CC=i686-w64-mingw32.static-gcc && CXX=i686-w64-mingw32.static-g++ $(MAKE) OPT="-fno-keep-inline-dllexport -pipe -D_FORTIFY_SOURCE=2 -O2"
+/home/ubuntu-mnp/htrcoin/src/secp256k1/src/libsecp256k1_la-secp256k1.o: FORCE
+	cd /home/ubuntu-mnp/htrcoin/src/secp256k1 && ./autogen.sh && ./configure --enable-module-recovery --with-bignum=no --host=i686-w64-mingw32.static CC=i686-w64-mingw32.static-gcc && CXX=i686-w64-mingw32.static-g++ $(MAKE) OPT="-fno-keep-inline-dllexport -pipe -D_FORTIFY_SOURCE=2 -O2"
 
 release-mocclean:
 	$(MAKE) -f $(MAKEFILE).Release mocclean

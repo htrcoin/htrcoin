@@ -21,6 +21,7 @@ class CValidationState;
 #define START_MASTERNODE_PAYMENTS 1522421410 //18 dec 2017 23:00 GMT
 
 #define FORK1_BlOCK 160000 // time to swtch to protocol 60031
+#define FORK2_BlOCK 325000 // time to swtch to protocol 60032
 
 static const int64_t DARKSEND_COLLATERAL = (0.01*COIN);
 static const int64_t DARKSEND_POOL_MAX = (4999.99*COIN);
@@ -64,7 +65,7 @@ static const int64_t MIN_TX_FEE = 1000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 /** No amount larger than this (in satoshi) is valid */
-static const int64_t MAX_MONEY = 80000000 * COIN; // 1M PoW coins
+static const int64_t MAX_MONEY = 210000000 * COIN; // 1M PoW coins
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
@@ -74,6 +75,15 @@ inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }
 
 /** "reject" message codes **/
 static const unsigned char REJECT_INVALID = 0x10;
+
+inline unsigned int GetTargetSpacing(int nHeight) {
+    // Starting at block 325k we lower the avergage block time to 0.5 minutes.
+    if (nHeight >= FORK2_BlOCK)
+        return 30;
+
+    // defaults to 1 minutes.
+    return 60;
+}
 
 inline int64_t GetMNCollateral(int nHeight){
 
@@ -89,13 +99,29 @@ inline int64_t GetMNCollateral(int nHeight){
     {
       return 20000;
     }
-    else if(nHeight >= 200000)
+    else if(nHeight >= 200000 && nHeight < FORK2_BlOCK) //FORK2_BlOCK = 325k
     {
       return 50000;
     }
+    else if(nHeight >= FORK2_BlOCK && nHeight < 500000) //fork2 starts.
+    {
+      return 100000;
+    }
+    else if(nHeight >= 500000 && nHeight < 750000)
+    {
+      return 150000;
+    }
+    else if(nHeight >= 750000 && nHeight < 1000000)
+    {
+      return 200000;
+    }
+    else if(nHeight >= 1000000)
+    {
+      return 250000;
+    }
     else
     {
-      return 50000;
+      return 250000;
     }
 
 }

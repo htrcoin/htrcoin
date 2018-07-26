@@ -134,7 +134,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 	// else
 	// 	vSortedByTimestamp.reserve(64 * nModifierInterval / TARGET_SPACING);
 
-    vSortedByTimestamp.reserve(64 * nModifierInterval / TARGET_SPACING);
+    vSortedByTimestamp.reserve(64 * nModifierInterval / GetTargetSpacing(pindexPrev->nHeight));
 
     int64_t nSelectionInterval = GetStakeModifierSelectionInterval();
     int64_t nSelectionIntervalStart = (pindexPrev->GetBlockTime() / nModifierInterval) * nModifierInterval - nSelectionInterval;

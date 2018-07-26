@@ -1254,7 +1254,7 @@ void BitcoinGUI::updateStakingIcon()
 		// else
 		// 	nEstimateTime = TARGET_SPACING * nNetworkWeight / nWeight;
 
-    nEstimateTime = TARGET_SPACING * nNetworkWeight / nWeight;
+    nEstimateTime = GetTargetSpacing(nBestHeight) * nNetworkWeight / nWeight;
 
         QString text;
         if (nEstimateTime < 60)

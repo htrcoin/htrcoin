@@ -1557,7 +1557,7 @@ void static StartSync(const vector<CNode*> &vNodes) {
         if (!pnode->fClient && !pnode->fOneShot &&
             !pnode->fDisconnect && pnode->fSuccessfullyConnected &&
             (pnode->nStartingHeight > (nBestHeight - 144)) &&
-            (pnode->nVersion < NOBLKS_VERSION_START || ((nBestHeight < FORK1_BlOCK) ? pnode->nVersion >= NOBLKS_VERSION_END : pnode->nVersion >= NOBLKS_VERSION_END_FORK1) )) {
+            (pnode->nVersion < NOBLKS_VERSION_START || ((nBestHeight < FORK2_BlOCK) ? pnode->nVersion >= NOBLKS_VERSION_END : pnode->nVersion >= NOBLKS_VERSION_END_FORK2) )) {
             // if ok, compare node's score with the best so far
             int64_t nScore = NodeSyncScore(pnode);
             if (pnodeNewSync == NULL || nScore > nBestScore) {

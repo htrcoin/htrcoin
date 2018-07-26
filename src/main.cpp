@@ -1429,10 +1429,35 @@ int64_t GetProofOfStakeReward(int nHeight, int64_t nCoinAge, int64_t nFees)
     {
       nSubsidy = 450 * COIN;
     }
-    else if(nHeight >= 200000)
+    else if(nHeight >= 200000 && nHeight < FORK2_BlOCK) //FORK2_BlOCK = 325k
     {
       nSubsidy = 1000 * COIN;
     }
+    else if(nHeight >= FORK2_BlOCK && nHeight < 500000) // FORK2_BlOCK = 325k, fork2 starts.
+    {
+      nSubsidy = 125 * COIN;
+    }
+    else if(nHeight >= 500000 && nHeight < 750000)
+    {
+      nSubsidy = 113 * COIN;
+    }
+    else if(nHeight >= 750000 && nHeight < 1000000)
+    {
+      nSubsidy = 100 * COIN;
+    }
+    else if(nHeight >= 1000000 && nHeight < 1250000)
+    {
+      nSubsidy = 50 * COIN;
+    }
+    else if(nHeight >= 1250000 && nHeight < 1500000)
+    {
+      nSubsidy = 20 * COIN;
+    }
+    else if(nHeight >= 1500000 && nHeight < 5000000)
+    {
+      nSubsidy = 13 * COIN;
+    }
+
 
     return nSubsidy + nFees;
 }
@@ -1449,10 +1474,10 @@ const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfSta
 
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
 {
-	unsigned int nTargetTemp = TARGET_SPACING;
+	unsigned int nTargetTemp;
 	// if (pindexLast->nTime > FORK_TIME)
 	// 	nTargetTemp = TARGET_SPACING2;
-  nTargetTemp = TARGET_SPACING;
+  nTargetTemp = GetTargetSpacing(pindexLast->nHeight);
 
 	// if(pindexLast->GetBlockTime() > STAKE_TIMESPAN_SWITCH_TIME)
 	// nTargetTimespan = 2 * 60; // 2 minutes
@@ -3589,7 +3614,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
         if ( pfrom->nVersion < MIN_PEER_PROTO_VERSION ||
-			     (nBestHeight >= FORK1_BlOCK && pfrom->nVersion < MIN_PEER_PROTO_VERSION_FORK1) )
+			     (nBestHeight >= FORK2_BlOCK && pfrom->nVersion < MIN_PEER_PROTO_VERSION_FORK2) )
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);
@@ -4552,7 +4577,16 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue)
 {
-    int64_t ret = blockValue * 0.9; //90%
+    int64_t ret;
+
+    if (nHeight < FORK2_BlOCK) // FORK2_BlOCK = 325k
+    {
+    	ret = blockValue * 0.9; //90%
+    }
+    else
+    {
+      ret = blockValue * 0.75; //75%
+    }
 
     return ret;
 }

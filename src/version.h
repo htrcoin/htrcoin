@@ -30,24 +30,25 @@ static const int DATABASE_VERSION = 70509;
 // network protocol versioning
 //
 
-static const int PROTOCOL_VERSION = 60031;
+static const int PROTOCOL_VERSION = 60032;
 
 // intial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
 
 // disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 60030;
+static const int MIN_PEER_PROTO_VERSION = 60031;
 static const int MIN_PEER_PROTO_VERSION_FORK1 = 60031;
+static const int MIN_PEER_PROTO_VERSION_FORK2 = 60032;
 
 // minimum peer version accepted by DarkSendPool
-static const int MIN_POOL_PEER_PROTO_VERSION = 60031;
+static const int MIN_POOL_PEER_PROTO_VERSION = 60032;
 
-static const int MIN_INSTANTX_PROTO_VERSION = 60031;
+static const int MIN_INSTANTX_PROTO_VERSION = 60032;
 
 //! minimum peer version that can receive masternode payments
 // V1 - Last protocol version before update
 // V2 - Newest protocol version
-static const int MIN_MASTERNODE_PAYMENT_PROTO_VERSION_1 = 60031;
+static const int MIN_MASTERNODE_PAYMENT_PROTO_VERSION_1 = 60032;
 // static const int MIN_MASTERNODE_PAYMENT_PROTO_VERSION_2 = 60031; //not been called anywhere
 
 // nTime field added to CAddress, starting with this version;
@@ -56,8 +57,9 @@ static const int CADDR_TIME_VERSION = 31402;
 
 // only request blocks from nodes outside this range of versions
 static const int NOBLKS_VERSION_START = 0;
-static const int NOBLKS_VERSION_END = 60030;
+static const int NOBLKS_VERSION_END = 60031;
 static const int NOBLKS_VERSION_END_FORK1 = 60031;
+static const int NOBLKS_VERSION_END_FORK2 = 60032;
 
 // BIP 0031, pong message, is enabled for all versions AFTER this one
 static const int BIP0031_VERSION = 60000;
